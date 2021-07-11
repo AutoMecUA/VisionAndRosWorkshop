@@ -15,9 +15,9 @@ def circular(img):
     return fit
 
 def main():
-    path = 'road_1.jpeg'
+    path = 'First Session/road_1.jpeg'
     img = readpath(path)
-    img_line = linear(img)
+    #img_line = linear(img)
     fit = circular(img)
     
 

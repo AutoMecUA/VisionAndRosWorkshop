@@ -17,8 +17,8 @@ def circular(img):
     img_bin = binarize(img)
     vertices = np.array([[(450, 520),(450,350),(550,350),(850,520)]])
     img_roi = ROI(img_bin, vertices)
-    fit = poly(img_roi)
-    return fit
+    #fit = poly(img_roi)
+    return img_roi
 
 def main():
 
@@ -32,9 +32,9 @@ def main():
         if see_image == False:
             continue
         img = cv_image
-        fit = circular(img)
+        circular(img)
         #listener(fit)
-        rospy.Rate(1).sleep()
+        rospy.Rate(20).sleep()
    
 
 

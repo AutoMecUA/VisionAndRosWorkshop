@@ -1,24 +1,25 @@
 #!/usr/bin/env python3
+import cv2
 import geometry_msgs.msg
 import rospy
 from cv_bridge import CvBridge
-from image_processing import *
 from sensor_msgs.msg import Image
 
-bridge = CvBridge() # create a converter class instance to use in the imageReceivedCallback
-publisher_twist = rospy.Publisher('/p_automec/cmd_vel', geometry_msgs.msg.Twist, queue_size=10)
+bridge = CvBridge() # Create a converter class instance to use in the imageReceivedCallback
+publisher_twist = rospy.Publisher('/p_automec/cmd_vel', geometry_msgs.msg.Twist, queue_size=10) # Define the publisher of the car velocity
 
 
 def imageReceivedCallback(image_msg):
 
-    print('Received image message')
-
-    # Convert received image message to an opencv image for processing
-    # global bridge
+    # Convert received image message to an OpenCV image for processing
     image_cv = bridge.imgmsg_to_cv2(image_msg, desired_encoding='passthrough')
-    image_cv = cv2.cvtColor(image_cv, cv2.COLOR_RGB2BGR)
+    image_cv = cv2.cvtColor(image_cv, cv2.COLOR_RGB2BGR) # Gazebo works with RGB and OpenCV works with BGR, conversion is needed
 
     # Process image to estimate the best driving angle and speed
+
+    ### YOUR CODE COMES HERE###
+
+    # Linear and angular velocity values
     linear_velocity = 0.2
     angular_velocity = 1.1
 
@@ -39,8 +40,8 @@ def imageReceivedCallback(image_msg):
 def main():
 
     rospy.init_node('driver', anonymous=True) # Initialization
-    rospy.Subscriber('/p_automec/camera/rgb/image_raw', Image, imageReceivedCallback)
-    rospy.spin()
+    rospy.Subscriber('/p_automec/camera/rgb/image_raw', Image, imageReceivedCallback) # Subscriber of the image received from gazebo
+    rospy.spin() # Continues running the code
 
 
 if __name__ == "__main__":

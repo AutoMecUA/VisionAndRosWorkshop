@@ -14,10 +14,12 @@ def readpath(path):
 def edges(img):
     # Convert the image to grayscale
     img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    cv2.namedWindow('Grayscale', cv2.WINDOW_GUI_EXPANDED)
     cv2.imshow('Grayscale', img_gray)
 
     # Blur the image in order to facilitate edge detection
     img_blur = cv2.GaussianBlur(img_gray,(7, 7), 0)
+    cv2.namedWindow('Blur', cv2.WINDOW_GUI_EXPANDED)
     cv2.imshow('Blur', img_blur)
 
     # With Canny, detect edges
@@ -37,6 +39,7 @@ def ROI(img, vertices):
 
     # Joints the mask to the image
     img_masked = cv2.bitwise_and(img, mask)
+    cv2.namedWindow('Masked', cv2.WINDOW_GUI_EXPANDED)
     cv2.imshow('Masked', img_masked)
     cv2.waitKey(1)
 
@@ -63,6 +66,8 @@ def houghlines(img, orimg):
     c = 0
     img_orig_line = cv2.addWeighted(orimg, a, img_line, b, c)
 
+
+    cv2.namedWindow('Original with Lines', cv2.WINDOW_GUI_EXPANDED)
     cv2.imshow('Original with Lines', img_orig_line)
 
     cv2.waitKey(0)
@@ -76,8 +81,9 @@ def binarize(img):
 
     img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
-    ret, img_bin = cv2.threshold(img_gray, 120, 255, cv2.THRESH_OTSU)   
-    
+    ret, img_bin = cv2.threshold(img_gray, 120, 255, cv2.THRESH_OTSU)
+
+    cv2.namedWindow('Binarized', cv2.WINDOW_GUI_EXPANDED)
     cv2.imshow('Binarized', img_bin)
 
     #cv2.waitKey(0)

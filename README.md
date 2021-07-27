@@ -18,9 +18,13 @@ To run the vision code, run:
 
 # Installation
 
-turtlebot3 
+### turtlebot3 
   
     git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
     git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git      
 
-gazebo
+Also, you must add this to your .bashrc 
+
+    export TURTLEBOT3_MODEL=waffle_pi
+
+

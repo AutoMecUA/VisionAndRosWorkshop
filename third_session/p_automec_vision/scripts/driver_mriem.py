@@ -9,6 +9,7 @@ bridge = CvBridge()  # Create a converter class instance to use in the imageRece
 publisher_twist = rospy.Publisher('/p_automec/cmd_vel', geometry_msgs.msg.Twist,
                                   queue_size=10)  # Define the publisher of the car velocity
 
+central_col = 100
 
 def imageReceivedCallback(image_msg):
     # Convert received image message to an OpenCV image for processing
@@ -16,7 +17,7 @@ def imageReceivedCallback(image_msg):
     image_cv = cv2.cvtColor(image_cv,
                             cv2.COLOR_RGB2BGR)  # Gazebo works with RGB and OpenCV works with BGR, conversion is needed
     image_gray = cv2.cvtColor(image_cv, cv2.COLOR_BGR2GRAY)
-    ret, image_binarized = cv2.threshold(image_gray, 120, 255, cv2.THRESH_OTSU)
+    ret, image_binarized = cv2.threshold(image_gray, 240, 255, cv2.THRESH_BINARY)
 
     # Process image to estimate the best driving angle and speed
 
@@ -44,11 +45,11 @@ def imageReceivedCallback(image_msg):
             cv2.line(image_cv, (col, row - 8), (col, row + 8), (255, 0, 0), 3)
             cv2.line(image_cv, (col - 8, row), (col + 8, row), (255, 0, 0), 3)
             break
-
+    global central_col        
     if left_col != None and right_col != None:
         central_col = int((left_col + right_col) / 2)
-    else:
-        central_col = int(width / 2)
+    #else:
+        #central_col = int(width / 2)
 
     cv2.line(image_cv, (central_col, row - 8), (central_col, row + 8), (0, 255, 0), 3)
     cv2.line(image_cv, (central_col - 8, row), (central_col + 8, row), (0, 255, 0), 3)
@@ -58,7 +59,7 @@ def imageReceivedCallback(image_msg):
     delta_x = int(width/2) - central_col
 
     # Linear and angular velocity values
-    linear_velocity = 0.2
+    linear_velocity = 0.4
     # PID controller ... only P for now
     angular_velocity = delta_x * 0.01
 
@@ -73,6 +74,10 @@ def imageReceivedCallback(image_msg):
     # Show received image
     cv2.namedWindow('image received', cv2.WINDOW_GUI_EXPANDED)
     cv2.imshow('image received', image_cv)
+    cv2.namedWindow('imageBin', cv2.WINDOW_GUI_EXPANDED)
+    cv2.imshow('imageBin', image_binarized)
+    cv2.namedWindow('imageGrey', cv2.WINDOW_GUI_EXPANDED)
+    cv2.imshow('imageGrey', image_gray)
     cv2.waitKey(10)
 
 

@@ -14,9 +14,9 @@ To spawn a p_automec player, run:
 
 # Installation
 
-We need to install turtlebot3_description package.
-Run:
+turtlebot3 
+  
+    git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+    git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git      
 
-git clone https://github.com/ROBOTIS-GIT/turtlebot3
-
-inside your catkin_ws
+gazebo

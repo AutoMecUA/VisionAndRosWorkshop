@@ -12,6 +12,10 @@ To spawn a p_automec player, run:
 
     roslaunch p_automec_bringup bringup.launch
 
+To run the vision code, run:
+
+    rosrun p_automec_vision driver_template.launch
+
 # Installation
 
 turtlebot3 

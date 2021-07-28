@@ -16,7 +16,7 @@ def imageReceivedCallback(image_msg):
     image_cv = cv2.cvtColor(image_cv,
                             cv2.COLOR_RGB2BGR)  # Gazebo works with RGB and OpenCV works with BGR, conversion is needed
     image_gray = cv2.cvtColor(image_cv, cv2.COLOR_BGR2GRAY)
-    ret, image_binarized = cv2.threshold(image_gray, 120, 255, cv2.THRESH_OTSU)
+    ret, image_binarized = cv2.threshold(image_gray, 240, 255, cv2.THRESH_BINARY)
 
     # Process image to estimate the best driving angle and speed
 
@@ -58,7 +58,7 @@ def imageReceivedCallback(image_msg):
     delta_x = int(width/2) - central_col
 
     # Linear and angular velocity values
-    linear_velocity = 0.2
+    linear_velocity = 0.4
     # PID controller ... only P for now
     angular_velocity = delta_x * 0.01
 
@@ -73,6 +73,10 @@ def imageReceivedCallback(image_msg):
     # Show received image
     cv2.namedWindow('image received', cv2.WINDOW_GUI_EXPANDED)
     cv2.imshow('image received', image_cv)
+    cv2.namedWindow('imageBin', cv2.WINDOW_GUI_EXPANDED)
+    cv2.imshow('imageBin', image_binarized)
+    cv2.namedWindow('imageGrey', cv2.WINDOW_GUI_EXPANDED)
+    cv2.imshow('imageGrey', image_gray)
     cv2.waitKey(10)
 
 

@@ -6,7 +6,7 @@ import cv2
 
 def readpath(path):
     # Read the file from the path and display it
-    img = cv2.imread(pa/home/user1/catkin_ws/src/formacao/scripts/VisionAndRosWorkshop/second_session/road_1.jpegth)
+    img = cv2.imread(path)
     cv2.imshow('Original', img)
     return img
 

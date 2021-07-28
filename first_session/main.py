@@ -19,7 +19,7 @@ def main():
     img = readpath(path)
     #img_line = linear(img)
     fit = circular(img)
-    print(fit)
+    
 
 
 

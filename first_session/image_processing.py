@@ -5,7 +5,7 @@ import cv2
 
 def readpath(path):
     # Read the file from the path and display it
-    img = cv2.imread(road_1.jpeg)
+    img = cv2.imread(path)
     cv2.imshow('Original', img)
     return img
 

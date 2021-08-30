@@ -14,7 +14,7 @@ To spawn a p_automec player, run:
 
 To run the vision code, run:
 
-    rosrun p_automec_vision driver_template.launch
+    rosrun p_automec_vision driver_template.py
 
 # Installation
 
